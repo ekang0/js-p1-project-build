@@ -1,7 +1,16 @@
-# Javascript Phase 1 Project Build
+# Ecommerce Store
 
 ### Overview 
 This is to detail the project from the user perspective.
+
+
+### Features
+
+
+### How to use
+
+
+
 
 ### How to install/use
 May not need this - depending on project
