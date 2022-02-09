@@ -1,3 +1,15 @@
 .header-logo-shop {
-  color: black;
+  color: #CFBCA3;
+  font-size: 30px;
+  padding: 5px;
+  margin: 5px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* lighter  DDD0BF 
+same as shop name CFBCA3*/
+.nav {
+  background-color: #DDD0BF;
 }
