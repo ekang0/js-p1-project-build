@@ -8,8 +8,7 @@
   justify-content: center;
 }
 
-/* lighter  DDD0BF 
-same as shop name CFBCA3*/
+/* color - lighter  DDD0BF or same as shop name CFBCA3*/
 .nav {
   background-color: #DDD0BF;
 }
@@ -18,3 +17,7 @@ same as shop name CFBCA3*/
   margin-left: 15px;
 }
 
+.products-page {
+  margin-left: 15px;
+  margin-bottom: 40px;
+}
