@@ -1,6 +1,6 @@
 .header-logo-shop {
   color: #CFBCA3;
-  font-size: 30px;
+  font-size: 35px;
   padding: 5px;
   margin: 5px; 
   display: flex;
@@ -13,3 +13,8 @@ same as shop name CFBCA3*/
 .nav {
   background-color: #DDD0BF;
 }
+
+.welcome-message {
+  margin-left: 15px;
+}
+
