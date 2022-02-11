@@ -33,20 +33,6 @@ const productListTemplate = () => {
   `
 };
 
-/*
-const productTemplate = (product) => {
-  return `
-    <div class="card-image">
-      <img src="images/sample-1.jpg">
-      <span class="card-title black-text">Product Name</span>
-     <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">+</i></a>
-    </div>
-    <div class="card-content">
-      <p class="product-information">Product information</p>
-    </div>
-  `
-};
-*/
 const productTemplate = (product) => {
   return `
   <div class="container">
@@ -55,7 +41,7 @@ const productTemplate = (product) => {
         <div class="card">
           <div class="card-image" margin="50px">
             <img src=${product.image} alt=${product.title} height="300px" width="50px">
-            <a class="btn-floating halfway-fab waves-effect waves-light red" id="product-add-btn"><i class="material-icons">+</i></a>
+            <a class="btn-floating halfway-fab waves-effect waves-light blue-grey darken-3" id="product-add-btn"><i class="material-icons">+</i></a>
           </div>
           <div class="card-content">
             <span class="card-title black-text">${product.title}</span>
@@ -66,6 +52,40 @@ const productTemplate = (product) => {
       </div>
     </div>
   </div>
+  `
+};
+
+const checkoutListTemplate = () => {
+  return `
+  <h4 class="checkout-page">Basket</h4>
+  <table class="container">
+    <thead>
+      <tr>
+          <th>Item</th>
+          <th>Item Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Alvin</td>
+        <td>$0.87</td>
+        <td>1</td>
+        <td>$0.87</td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr>
+        <td></td>
+        <td></td>
+        <td><strong>Total</strong></td>
+        <td id="check-out-total"><strong>$</strong></td>
+      </tr>
+    </tbody>
+  </table>
+  <button id="checkout-button" class="btn waves-effect waves-light right" type="submit" name="action">Checkout</button>
   `
 };
 
@@ -92,8 +112,8 @@ const renderProducts = () => {
 
 //need to finish after building checkout page template
 const renderCheckoutPage = () => {
-  
-}
+  mainDiv().innerHTML = checkoutListTemplate();
+};
 
 
 
@@ -147,7 +167,7 @@ document.addEventListener('DOMContentLoaded',() => {
   renderHomePage();
   homePageLinkEvent();
   productPageLinkEvent();
-  //checkoutPageLinkEvent();
+  checkoutPageLinkEvent();
 
 
 });
