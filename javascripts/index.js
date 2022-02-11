@@ -90,6 +90,7 @@ const renderProducts = () => {
   }).join("")
 };
 
+//need to finish after building checkout page template
 const renderCheckoutPage = () => {
   
 }
