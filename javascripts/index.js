@@ -11,6 +11,8 @@ const mainDiv = () => document.getElementById("main");
 const homePageLink = () => document.getElementById("home-page-link");
 const productPageLink = () => document.getElementById("products-page-link");
 let products = [];
+const checkoutPageLink = () => document.getElementById("checkout-page-link");
+
 
 /* TEMPLATES */
 const homePageTemplate = () => {
@@ -26,7 +28,7 @@ const productListTemplate = () => {
   return `
     <h4 class="products-page">Products</h4>
     <div>
-      ${renderProducts()}
+      ${ renderProducts() }
     </div>
   `
 };
@@ -48,24 +50,25 @@ const productTemplate = (product) => {
 const productTemplate = (product) => {
   return `
   <div class="container">
-  <div class="row">
-    <div class="col s12 m6">
-      <div class="card">
-        <div class="card-image">
-          <img src=${product.image}>
-          <span class="card-title black-text">${product.title}</span>
-        <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">+</i></a>
-        </div>
-        <div class="card-content">
-          <p class="product-information">${product.description}</p>
-          <p class="product-price">${product.price}</p>
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="card">
+          <div class="card-image" margin="50px">
+            <img src=${product.image} alt=${product.title} height="300px" width="50px">
+            <a class="btn-floating halfway-fab waves-effect waves-light red" id="product-add-btn"><i class="material-icons">+</i></a>
+          </div>
+          <div class="card-content">
+            <span class="card-title black-text">${product.title}</span>
+            <p class="product-information">${product.description}</p>
+            <p class="product-price">$${product.price}</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  </div>
   `
 };
+
 
 /* MISC*/
 //const resetMainDiv = () => {mainDiv().innerHTML = ""};
@@ -80,12 +83,19 @@ const renderProductPage = () => {
   mainDiv().innerHTML = productListTemplate();
 };
 
+//note - need to return! 
 const renderProducts = () => {
-  products.forEach(product => {
-    //console.log(product);
-    productTemplate(product); 
-  })
+  return products.map(product => {
+    return productTemplate(product) 
+  }).join("")
 };
+
+const renderCheckoutPage = () => {
+  
+}
+
+
+
 
 /* EVENTS */
 /* const loadProducts = () => {
@@ -116,6 +126,13 @@ const productPageLinkEvent = () => {
   })
 };
 
+const checkoutPageLinkEvent = () => {
+  checkoutPageLink().addEventListener("click", (e) => {
+    e.preventDefault();
+    renderCheckoutPage();
+  })
+};
+
 
 /* */
 
@@ -129,7 +146,9 @@ document.addEventListener('DOMContentLoaded',() => {
   renderHomePage();
   homePageLinkEvent();
   productPageLinkEvent();
-  
+  //checkoutPageLinkEvent();
+
+
 });
 
 
