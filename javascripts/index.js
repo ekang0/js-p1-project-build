@@ -11,6 +11,7 @@ const mainDiv = () => document.getElementById("main");
 const homePageLink = () => document.getElementById("home-page-link");
 const productPageLink = () => document.getElementById("products-page-link");
 let products = [];
+const productAddButton = () => document.getElementById("product-add-btn");
 const checkoutPageLink = () => document.getElementById("checkout-page-link");
 
 
@@ -75,6 +76,7 @@ const checkoutListTemplate = () => {
         <td>1</td>
         <td>$0.87</td>
       </tr>
+      ${ checkoutProductListTemplate() }
     </tbody>
     <tbody>
       <tr>
@@ -89,6 +91,16 @@ const checkoutListTemplate = () => {
   `
 };
 
+const checkoutProductListTemplate = () => {
+  return `
+    <tr>
+      <td>Alvin</td>
+      <td>$0.87</td>
+      <td>1</td>
+      <td>$0.87</td>
+    </tr>
+  `
+};
 
 /* MISC*/
 //const resetMainDiv = () => {mainDiv().innerHTML = ""};
@@ -115,7 +127,9 @@ const renderCheckoutPage = () => {
   mainDiv().innerHTML = checkoutListTemplate();
 };
 
-
+const renderCheckout = () => {
+  return 
+};
 
 
 /* EVENTS */
@@ -144,8 +158,18 @@ const productPageLinkEvent = () => {
     e.preventDefault();
     await loadProducts();
     renderProductPage();
+    addToCartEvent();
   })
 };
+
+const addToCartEvent = () => {
+  productAddButton().addEventListener("click", (e) => {
+    e.preventDefault();
+    //alert('added');
+
+
+  })
+}
 
 const checkoutPageLinkEvent = () => {
   checkoutPageLink().addEventListener("click", (e) => {
@@ -168,7 +192,6 @@ document.addEventListener('DOMContentLoaded',() => {
   homePageLinkEvent();
   productPageLinkEvent();
   checkoutPageLinkEvent();
-
 
 });
 
