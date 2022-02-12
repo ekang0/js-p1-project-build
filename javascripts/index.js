@@ -13,6 +13,7 @@ const productPageLink = () => document.getElementById("products-page-link");
 let products = [];
 const productAddButton = () => document.getElementById("product-add-btn");
 const checkoutPageLink = () => document.getElementById("checkout-page-link");
+const checkOutButton = () => document.getElementById("checkout-button");
 
 
 /* TEMPLATES */
@@ -166,15 +167,24 @@ const addToCartEvent = () => {
   productAddButton().addEventListener("click", (e) => {
     e.preventDefault();
     //alert('added');
+    console.log(e);
 
-
+    
   })
-}
+};
+
+const checkOutEvent = () => {
+  checkOutButton().addEventListener("click", (e) => {
+    e.preventDefault();
+    alert('Thank you for shopping with us! You will receive a confirmation email containing your order summary.')
+  })
+};
 
 const checkoutPageLinkEvent = () => {
   checkoutPageLink().addEventListener("click", (e) => {
     e.preventDefault();
     renderCheckoutPage();
+    checkOutEvent();
   })
 };
 
