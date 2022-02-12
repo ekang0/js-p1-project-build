@@ -17,14 +17,6 @@ const checkOutButton = () => document.getElementById("checkout-button");
 
 
 /* TEMPLATES */
-const homePageTemplate = () => {
-  return `
-  <div class="welcome-message">
-  <h3>Hello Friend!</h3>
-  <p>Thanks for stopping by our shop.</p>
-  </div>
-  `
-};
 
 const productListTemplate = () => {
   return `
@@ -84,7 +76,7 @@ const checkoutListTemplate = () => {
         <td></td>
         <td></td>
         <td><strong>Total</strong></td>
-        <td id="check-out-total"><strong>$</strong></td>
+       ${ checkoutTotalTemplate() }
       </tr>
     </tbody>
   </table>
@@ -92,6 +84,7 @@ const checkoutListTemplate = () => {
   `
 };
 
+//still need to complete
 const checkoutProductListTemplate = () => {
   return `
     <tr>
@@ -103,31 +96,48 @@ const checkoutProductListTemplate = () => {
   `
 };
 
+//still need to complete
+const checkoutTotalTemplate = () => {
+  return `
+    <td id="check-out-total"><strong>$</strong></td>
+  `
+};
+
 /* MISC*/
 //const resetMainDiv = () => {mainDiv().innerHTML = ""};
 
 
 /* RENDERS */
 const renderHomePage = () => {
-  mainDiv().innerHTML = homePageTemplate();
+  mainDiv().innerHTML = "";
+  const div = document.createElement("div");
+  div.className ="welcome-message";
+  const h3 = document.createElement("h3");
+  h3.innerText = "Hello Friend!";
+  const p = document.createElement("p");
+  p.innerText = "Welcome to our shop!";
+  div.appendChild(h3);
+  div.appendChild(p);
+  mainDiv().appendChild(div);
 };
 
 const renderProductPage = () => { 
   mainDiv().innerHTML = productListTemplate();
 };
 
-//note - need to return! 
+//note - don't forget need to return! 
 const renderProducts = () => {
   return products.map(product => {
     return productTemplate(product) 
   }).join("")
 };
 
-//need to finish after building checkout page template
+
 const renderCheckoutPage = () => {
   mainDiv().innerHTML = checkoutListTemplate();
 };
 
+//still need to complete
 const renderCheckout = () => {
   return 
 };
@@ -163,13 +173,15 @@ const productPageLinkEvent = () => {
   })
 };
 
+
+//still need to complete
 const addToCartEvent = () => {
   productAddButton().addEventListener("click", (e) => {
     e.preventDefault();
     //alert('added');
     console.log(e);
 
-    
+
   })
 };
 
