@@ -14,39 +14,61 @@ let products = [];
 const productAddButton = () => document.getElementById("product-add-btn");
 const checkoutPageLink = () => document.getElementById("checkout-page-link");
 const checkOutButton = () => document.getElementById("checkout-button");
+//const checkoutItemList = () => document.getElementById("checkout-item-list");
 
 
 /* TEMPLATES */
-
-const productListTemplate = () => {
-  return `
-    <h4 class="products-page">Products</h4>
-    <div>
-      ${ renderProducts() }
-    </div>
-  `
-};
-
 const productTemplate = (product) => {
-  return `
-  <div class="container">
-    <div class="row">
-      <div class="col s12 m6">
-        <div class="card">
-          <div class="card-image" margin="50px">
-            <img src=${product.image} alt=${product.title} height="300px" width="50px">
-            <a class="btn-floating halfway-fab waves-effect waves-light blue-grey darken-3" id="product-add-btn"><i class="material-icons">+</i></a>
-          </div>
-          <div class="card-content">
-            <span class="card-title black-text">${product.title}</span>
-            <p class="product-information">${product.description}</p>
-            <p class="product-price">$${product.price}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  `
+  const containerDiv = document.createElement("div");
+  const rowDiv = document.createElement("div");
+  const colDiv = document.createElement("div");
+  const cardDiv = document.createElement("div");
+  const cardImageDiv = document.createElement("div");
+  const imageTag = document.createElement("img");
+  const productAddBtn = document.createElement("a");
+  const addBtnIcon = document.createElement("i");
+  const cardContentDiv= document.createElement("div");
+  const cardTitleSpan = document.createElement("span");
+  const productInfo = document.createElement("p");
+  const productPrice = document.createElement("p");
+  
+  containerDiv.className = "container";
+  rowDiv.className = "row";
+  colDiv.className = "col s12 m5";
+  cardDiv.className = "card";
+  cardImageDiv.className = "card-image";
+  productAddBtn.className = "btn-floating halfway-fab waves-effect waves-light blue-grey darken-3";
+  addBtnIcon.className = "material-icons";
+  cardContentDiv.className = "card-content";
+  cardTitleSpan.className = "card-title black-text";
+  productInfo.className = "product-information";
+  productPrice.className = "product-price";
+
+  cardImageDiv.setAttribute("margin", "50px");
+  imageTag.setAttribute("src", `${product.image}`);
+  imageTag.setAttribute("alt", `${product.title}`);
+  imageTag.setAttribute("height", "300px");
+  imageTag.setAttribute("width", "50px");
+  productAddBtn.setAttribute("id", `product-add-btn-${product.id}`);
+
+  addBtnIcon.innerText = "+";
+  cardTitleSpan.innerText = product.title;
+  productInfo.innerText = product.description;
+  productPrice.innerText = `$${product.price}`;
+
+  cardContentDiv.appendChild(cardTitleSpan);
+  cardContentDiv.appendChild(productInfo);
+  cardContentDiv.appendChild(productPrice);
+  productAddBtn.appendChild(addBtnIcon);
+  cardImageDiv.appendChild(imageTag);
+  cardImageDiv.appendChild(productAddBtn);
+  cardDiv.appendChild(cardImageDiv);
+  cardDiv.appendChild(cardContentDiv);
+  colDiv.appendChild(cardDiv);
+  rowDiv.appendChild(colDiv);
+  containerDiv.appendChild(rowDiv);
+
+  return containerDiv;
 };
 
 const checkoutListTemplate = () => {
@@ -62,7 +84,7 @@ const checkoutListTemplate = () => {
       </tr>
     </thead>
 
-    <tbody>
+    <tbody class="checkout-item-list">
       <tr>
         <td>Alvin</td>
         <td>$0.87</td>
@@ -85,15 +107,25 @@ const checkoutListTemplate = () => {
 };
 
 //still need to complete
-const checkoutProductListTemplate = () => {
+const checkoutProductListTemplate = (item, price, qty, total) => {
+return `
+      <tr>
+        <td>Alvin</td>
+        <td>$0.87</td>
+        <td>1</td>
+        <td>$0.87</td>
+      </tr>
+      `
+  /*
   return `
     <tr>
-      <td>Alvin</td>
-      <td>$0.87</td>
-      <td>1</td>
-      <td>$0.87</td>
+      <td>${item}</td>
+      <td>$${price}</td>
+      <td>${qty}</td>
+      <td>$${total}</td>
     </tr>
   `
+  */
 };
 
 //still need to complete
@@ -107,7 +139,7 @@ const checkoutTotalTemplate = () => {
 //const resetMainDiv = () => {mainDiv().innerHTML = ""};
 
 
-/* RENDERS */
+/* RENDERS / EVENT HANDLERS */
 const renderHomePage = () => {
   mainDiv().innerHTML = "";
   const div = document.createElement("div");
@@ -121,29 +153,50 @@ const renderHomePage = () => {
   mainDiv().appendChild(div);
 };
 
+
 const renderProductPage = () => { 
-  mainDiv().innerHTML = productListTemplate();
-};
+  mainDiv().innerHTML = "";
+  //productListTemplate() = h4
+  const h4 = document.createElement("h4");
+  const div = document.createElement("div");
+  h4.className = "products-page";
+  h4.innerText = "Products";
 
-//note - don't forget need to return! 
-const renderProducts = () => {
-  return products.map(product => {
-    return productTemplate(product) 
-  }).join("")
-};
+  // renderProducts() and append to div
+  products.map(product => {
+    const productCol = productTemplate(product); 
+    //console.log(productCol);
+    div.appendChild(productCol);
+  })
 
+  h4.appendChild(div);
+  
+  mainDiv().appendChild(h4);
+};
 
 const renderCheckoutPage = () => {
   mainDiv().innerHTML = checkoutListTemplate();
 };
 
 //still need to complete
-const renderCheckout = () => {
-  return 
+const renderCheckout = (productDivCard) => {
+  //console.log(productDivCard);
+  let item = productDivCard.getElementsByClassName("card-title black-text")[0].innerText;
+  let price = productDivCard.getElementsByClassName("product-price")[0].innerText.substring(1);
+  let qty = 1;
+  let total = `${price * qty}`;
+ 
+  //console.log(item);
+  //console.log(price);
+  //console.log(qty);
+  //console.log(total);
+
+  console.log(checkoutProductListTemplate(item, price, qty, total));
+
 };
 
 
-/* EVENTS */
+/* EVENTS / EVENT LISTENERS */
 /* const loadProducts = () => {
   fetch("https://fakestoreapi.com/products/category/jewelery")
   .then(response => response.json())
@@ -173,17 +226,22 @@ const productPageLinkEvent = () => {
   })
 };
 
-
 //still need to complete
 const addToCartEvent = () => {
   productAddButton().addEventListener("click", (e) => {
     e.preventDefault();
     //alert('added');
-    console.log(e);
+    // console.log(e.target.parentNode.parentNode.parentNode);
+    const productDivCard = e.target.parentNode.parentNode.parentNode;
+    // checkoutProductListTemplate(productDivCard);
+    //console.log(productDivCard);
+    //console.log(productDivCard.getElementsByClassName("card-title black-text")[0].innerText);
 
+    renderCheckout(productDivCard);
 
   })
 };
+
 
 const checkOutEvent = () => {
   checkOutButton().addEventListener("click", (e) => {
@@ -202,9 +260,9 @@ const checkoutPageLinkEvent = () => {
 
 
 /* */
-
-
-
+// const resetMain = () => {
+//   mainDiv().innerHTML = "";
+// }
 
 
 
