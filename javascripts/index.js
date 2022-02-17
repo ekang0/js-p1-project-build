@@ -1,17 +1,14 @@
 //For javascript logic
 
 /* GLOBALS */
-
-
-
+let products = [];
+let cart = [];
 
 
 /* NODE GETTERS */
 const mainDiv = () => document.getElementById("main");
 const homePageLink = () => document.getElementById("home-page-link");
 const productPageLink = () => document.getElementById("products-page-link");
-let products = [];
-const productAddButton = () => document.getElementById("product-add-btn");
 const checkoutPageLink = () => document.getElementById("checkout-page-link");
 const checkOutButton = () => document.getElementById("checkout-button");
 
@@ -70,6 +67,7 @@ const productTemplate = (product) => {
   return containerDiv;
 };
 
+
 const checkoutListTemplate = () => {
   const table = document.createElement("table"); 
   const thead = document.createElement("thead");
@@ -77,54 +75,29 @@ const checkoutListTemplate = () => {
   const thItem = document.createElement("th");
   const thItemPrice = document.createElement("th");
   const thQuantity = document.createElement("th");
-  const thTotal = document.createElement("th");
   const tbodyCheckoutItemList = document.createElement("tbody");
-  const tbodyCheckoutTotal = document.createElement("tbody");
-  const trBodyCheckoutTotal = document.createElement("tr");
-  const td1 = document.createElement("td");
-  const td2 = document.createElement("td");
-  const tdTotal = document.createElement("td");
-  const strong = document.createElement("strong");
   
   table.className = "container";
   tbodyCheckoutItemList.className = "checkout-item-list";
-  tbodyCheckoutTotal.className = "checkout-total-line";
 
   thItem.innerText = "Item";
   thItemPrice.innerText = "Item Price";
   thQuantity.innerText = "Quantity";
-  // thTotal.innerText = "Total";
-  // strong.innerText = "Total";
 
   trHead.appendChild(thItem);
   trHead.appendChild(thItemPrice);
   trHead.appendChild(thQuantity);
-  // trHead.appendChild(thTotal);
   thead.appendChild(trHead);
-  //tbodyCheckoutItemList.appendChild( `${ checkoutProductListTemplate() }` );
 
   cart.map(item => {
     tbodyCheckoutItemList.appendChild(checkoutProductListTemplate(item))
   });
 
-  trBodyCheckoutTotal.appendChild(td1);
-  trBodyCheckoutTotal.appendChild(td2);
-  // tdTotal.appendChild(strong);
-  trBodyCheckoutTotal.appendChild(tdTotal);
-  //trBodyCheckoutTotal.appendChild( `${checkoutTotalTemplate()}` );
-  tbodyCheckoutTotal.appendChild(trBodyCheckoutTotal);
   table.appendChild(thead);
   table.appendChild(tbodyCheckoutItemList);
-  table.appendChild(tbodyCheckoutTotal);
-
 
   return table
-  /*
-  <button id="checkout-button" class="btn waves-effect waves-light right" type="submit" name="action">Checkout</button>
-  `
-  */
 };
-
 
 
 const checkoutProductListTemplate = (item) => {
@@ -132,35 +105,23 @@ const checkoutProductListTemplate = (item) => {
   const tdItem = document.createElement("td");
   const tdPrice = document.createElement("td");
   const tdQty = document.createElement("td");
-  const tdTotalPrice = document.createElement("td");
 
-
-  tr.className = ""
-  tdItem.className = ""
-  tdPrice.className = "item-price"
-  tdQty.className = "item-qty"
-  tdTotalPrice.className = "item-total"
+  tr.className = "checkout-products";
+  tdItem.className = "item-name";
+  tdPrice.className = "item-price";
+  tdQty.className = "item-qty";
 
   tdItem.innerText = item.name;
-  tdPrice.innerText = `$${item.price}`
-  tdQty.innerText = "1"
-  // tdTotalPrice.innerText= ""
+  tdPrice.innerText = `$${item.price}`;
+  tdQty.innerText = "1";
 
   tr.appendChild(tdItem);
   tr.appendChild(tdPrice);
   tr.appendChild(tdQty);
-  tr.appendChild(tdTotalPrice);
 
   return tr;
 };
 
-
-//still need to complete
-// const checkoutTotalTemplate = () => {
-//   return `
-//     <td id="check-out-total"><strong>$</strong></td>
-//   `
-// };
 
 /* MISC*/
 
@@ -179,34 +140,28 @@ const renderHomePage = () => {
   mainDiv().appendChild(div);
 };
 
-let cart = [];
+
 const renderProductPage = () => { 
   mainDiv().innerHTML = "";
-  //productListTemplate() = h4
   let productIds = [];
   const h4 = document.createElement("h4");
   const div = document.createElement("div");
   h4.className = "products-page";
   h4.innerText = "Products";
-  // renderProducts() and append to div
+  // render products and append to div
   products.map(product => {
     const productCol = productTemplate(product); 
-    //console.log(productCol);
     div.appendChild(productCol);
     productIds.push(`${product.id}`);
-    //console.log(product.id);
-    //console.log(productIds);
-  })
+  });
 
   h4.appendChild(div);
   mainDiv().appendChild(h4);
-  //console.log(mainDiv().appendChild(h4));
 
   productIds.map(idNumber => {
     let addtoCartButton = document.getElementById(`product-add-btn-${idNumber}`);
     addtoCartButton.addEventListener("click", (e) => {
       e.preventDefault();
-      //console.log(e.target.closest(".container"))
       let cartItem = e.target.closest(".container");
       let cartItemName = cartItem.querySelector("span").innerText;
       let cartItemPrice = parseFloat(cartItem.querySelector(".product-price").innerText.substring(1));
@@ -215,53 +170,34 @@ const renderProductPage = () => {
         price: cartItemPrice
       };
       cart.push(cartItemAdd);
-
     });
-
   });
 };
 
 
-
 const renderCheckoutPage = () => {
-  //mainDiv().innerHTML = checkoutListTemplate();
-  //checkoutListTemplate()
   mainDiv().innerHTML = "";
-  const div = document.createElement("div")
+  const div = document.createElement("div");
   const h4 = document.createElement("h4");
   const buttonCheckout = document.createElement("button");
+
   h4.className = "checkout-page";
   buttonCheckout.className = "btn waves-effect waves-light right";
+
   buttonCheckout.setAttribute("id", "checkout-button");
   buttonCheckout.setAttribute("type", "submit");
   buttonCheckout.setAttribute("name", "action");
+
   h4.innerText = "Basket";
-  buttonCheckout.innerText = "Checkout"
+  buttonCheckout.innerText = "Checkout";
 
   div.appendChild(h4);
   div.appendChild(checkoutListTemplate());
   div.appendChild(buttonCheckout);
+
   mainDiv().appendChild(div);
-
 };
 
-//still need to complete
-/*const renderCheckout = (productDivCard) => {
-  //console.log(productDivCard);
-  let item = productDivCard.getElementsByClassName("card-title black-text")[0].innerText;
-  let price = productDivCard.getElementsByClassName("product-price")[0].innerText.substring(1);
-  let qty = 1;
-  let total = `${price * qty}`;
- 
-  //console.log(item);
-  //console.log(price);
-  //console.log(qty);
-  //console.log(total);
-
-  console.log(checkoutProductListTemplate(item, price, qty, total));
-
-};
-*/
 
 /* EVENTS / EVENT LISTENERS */
 /* const loadProducts = () => {
@@ -273,9 +209,7 @@ const loadProducts = async () => {
   const response = await fetch("https://fakestoreapi.com/products/category/jewelery");
   const data = await response.json();
   products = data;
-  //console.log(products)
 };
-
 
 const homePageLinkEvent = () => {
   homePageLink().addEventListener('click', (e) => {
@@ -289,27 +223,8 @@ const productPageLinkEvent = () => {
     e.preventDefault();
     await loadProducts();
     renderProductPage();
-    //addToCartEvent();
   })
 };
-
-//still need to complete
-/*
-const addToCartEvent = () => {
-  productAddButton().addEventListener("click", (e) => {
-    e.preventDefault();
-    //alert('added');
-    // console.log(e.target.parentNode.parentNode.parentNode);
-    const productDivCard = e.target.parentNode.parentNode.parentNode;
-    // checkoutProductListTemplate(productDivCard);
-    //console.log(productDivCard);
-    //console.log(productDivCard.getElementsByClassName("card-title black-text")[0].innerText);
-
-    renderCheckout(productDivCard);
-
-  })
-};
-*/
 
 const checkOutEvent = () => {
   checkOutButton().addEventListener("click", (e) => {
@@ -337,7 +252,4 @@ document.addEventListener('DOMContentLoaded',() => {
   homePageLinkEvent();
   productPageLinkEvent();
   checkoutPageLinkEvent();
-
 });
-
-
