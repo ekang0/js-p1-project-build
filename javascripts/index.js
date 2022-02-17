@@ -143,32 +143,13 @@ const checkoutProductListTemplate = () => {
   tdQty.innerText = "1"
   tdTotalPrice.innerText= ""
 
+  tr.appendChild(tdItem);
+  tr.appendChild(tdPrice);
+  tr.appendChild(tdQty);
+  tr.appendChild(tdTotalPrice);
 
-}
-
-//still need to complete
-/*
-const checkoutProductListTemplate = (item, price, qty, total) => {
-return `
-      <tr>
-        <td>Alvin</td>
-        <td>$0.87</td>
-        <td>1</td>
-        <td>$0.87</td>
-      </tr>
-      `
-  //
-  return `
-    <tr>
-      <td>${item}</td>
-      <td>$${price}</td>
-      <td>${qty}</td>
-      <td>$${total}</td>
-    </tr>
-  `
-  //
+  return tr;
 };
-*/
 
 
 //still need to complete
