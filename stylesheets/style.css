@@ -43,3 +43,8 @@
   margin-top: 30px;
   margin-right: 15px;
 }
+
+.checkout-total-line {
+  font: bold;
+  background-color: #A3B6CF;
+}
