@@ -15,6 +15,7 @@ const productAddButton = () => document.getElementById("product-add-btn");
 const checkoutPageLink = () => document.getElementById("checkout-page-link");
 const checkOutButton = () => document.getElementById("checkout-button");
 //const checkoutItemList = () => document.getElementById("checkout-item-list");
+let checkoutItems = [];
 
 
 /* TEMPLATES */
@@ -72,41 +73,81 @@ const productTemplate = (product) => {
 };
 
 const checkoutListTemplate = () => {
-  return `
-  <h4 class="checkout-page">Basket</h4>
-  <table class="container">
-    <thead>
-      <tr>
-          <th>Item</th>
-          <th>Item Price</th>
-          <th>Quantity</th>
-          <th>Total</th>
-      </tr>
-    </thead>
+  const table = document.createElement("table"); 
+  const thead = document.createElement("thead");
+  const trHead = document.createElement("tr");
+  const thItem = document.createElement("th");
+  const thItemPrice = document.createElement("th");
+  const thQuantity = document.createElement("th");
+  const thTotal = document.createElement("th");
+  const tbodyCheckoutItemList = document.createElement("tbody");
+  const tbodyCheckoutTotal = document.createElement("tbody");
+  const trBodyCheckoutTotal = document.createElement("tr");
+  const td1 = document.createElement("td");
+  const td2 = document.createElement("td");
+  const tdTotal = document.createElement("td");
+  const strong = document.createElement("strong");
+  
+  table.className = "container";
+  tbodyCheckoutItemList.className = "checkout-item-list";
+  tbodyCheckoutTotal.className = "checkout-total-line";
 
-    <tbody class="checkout-item-list">
-      <tr>
-        <td>Alvin</td>
-        <td>$0.87</td>
-        <td>1</td>
-        <td>$0.87</td>
-      </tr>
-      ${ checkoutProductListTemplate() }
-    </tbody>
-    <tbody>
-      <tr>
-        <td></td>
-        <td></td>
-        <td><strong>Total</strong></td>
-       ${ checkoutTotalTemplate() }
-      </tr>
-    </tbody>
-  </table>
+  thItem.innerText = "Item";
+  thItemPrice.innerText = "Item Price";
+  thQuantity.innerText = "Quantity";
+  thTotal.innerText = "Total";
+  strong.innerText = "Total";
+
+  trHead.appendChild(thItem);
+  trHead.appendChild(thItemPrice);
+  trHead.appendChild(thQuantity);
+  trHead.appendChild(thTotal);
+  thead.appendChild(trHead);
+  //tbodyCheckoutItemList.appendChild( `${ checkoutProductListTemplate() }` );
+  trBodyCheckoutTotal.appendChild(td1);
+  trBodyCheckoutTotal.appendChild(td2);
+  tdTotal.appendChild(strong);
+  trBodyCheckoutTotal.appendChild(tdTotal);
+  //trBodyCheckoutTotal.appendChild( `${checkoutTotalTemplate()}` );
+  tbodyCheckoutTotal.appendChild(trBodyCheckoutTotal);
+  table.appendChild(thead);
+  table.appendChild(tbodyCheckoutItemList);
+  table.appendChild(tbodyCheckoutTotal);
+
+
+  return table
+  /*
   <button id="checkout-button" class="btn waves-effect waves-light right" type="submit" name="action">Checkout</button>
   `
+  */
 };
 
+
+
+const checkoutProductListTemplate = () => {
+  const tr = document.createElement("tr");
+  const tdItem = document.createElement("td");
+  const tdPrice = document.createElement("td");
+  const tdQty = document.createElement("td");
+  const tdTotalPrice = document.createElement("td");
+
+
+  tr.className = ""
+  tdItem.className = ""
+  tdPrice.className = "item-price"
+  tdQty.className = "item-qty"
+  tdTotalPrice.className = "item-total"
+
+  tdItem.innerText = ""
+  tdPrice.innerText = ""
+  tdQty.innerText = "1"
+  tdTotalPrice.innerText= ""
+
+
+}
+
 //still need to complete
+/*
 const checkoutProductListTemplate = (item, price, qty, total) => {
 return `
       <tr>
@@ -116,7 +157,7 @@ return `
         <td>$0.87</td>
       </tr>
       `
-  /*
+  //
   return `
     <tr>
       <td>${item}</td>
@@ -125,18 +166,19 @@ return `
       <td>$${total}</td>
     </tr>
   `
-  */
+  //
 };
+*/
+
 
 //still need to complete
-const checkoutTotalTemplate = () => {
-  return `
-    <td id="check-out-total"><strong>$</strong></td>
-  `
-};
+// const checkoutTotalTemplate = () => {
+//   return `
+//     <td id="check-out-total"><strong>$</strong></td>
+//   `
+// };
 
 /* MISC*/
-//const resetMainDiv = () => {mainDiv().innerHTML = ""};
 
 
 /* RENDERS / EVENT HANDLERS */
@@ -157,29 +199,62 @@ const renderHomePage = () => {
 const renderProductPage = () => { 
   mainDiv().innerHTML = "";
   //productListTemplate() = h4
+  let productIds = [];
   const h4 = document.createElement("h4");
   const div = document.createElement("div");
   h4.className = "products-page";
   h4.innerText = "Products";
-
   // renderProducts() and append to div
   products.map(product => {
     const productCol = productTemplate(product); 
     //console.log(productCol);
     div.appendChild(productCol);
+    productIds.push(`${product.id}`);
+    //console.log(product.id);
+    //console.log(productIds);
   })
 
   h4.appendChild(div);
-  
   mainDiv().appendChild(h4);
+  //console.log(mainDiv().appendChild(h4));
+
+  productIds.map(idNumber => {
+    let addtoCartButton = document.getElementById(`product-add-btn-${idNumber}`);
+    addtoCartButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      //console.log(e.target.closest(".container"))
+      let productContainer = e.target.closest(".container");
+      
+    });
+
+  });
 };
 
+
 const renderCheckoutPage = () => {
-  mainDiv().innerHTML = checkoutListTemplate();
+  //mainDiv().innerHTML = checkoutListTemplate();
+  //checkoutListTemplate()
+  mainDiv().innerHTML = "";
+  const div = document.createElement("div")
+  const h4 = document.createElement("h4");
+  const buttonCheckout = document.createElement("button");
+  h4.className = "checkout-page";
+  buttonCheckout.className = "btn waves-effect waves-light right";
+  buttonCheckout.setAttribute("id", "checkout-button");
+  buttonCheckout.setAttribute("type", "submit");
+  buttonCheckout.setAttribute("name", "action");
+  h4.innerText = "Basket";
+  buttonCheckout.innerText = "Checkout"
+
+  div.appendChild(h4);
+  div.appendChild(checkoutListTemplate());
+  div.appendChild(buttonCheckout);
+  mainDiv().appendChild(div);
+
 };
 
 //still need to complete
-const renderCheckout = (productDivCard) => {
+/*const renderCheckout = (productDivCard) => {
   //console.log(productDivCard);
   let item = productDivCard.getElementsByClassName("card-title black-text")[0].innerText;
   let price = productDivCard.getElementsByClassName("product-price")[0].innerText.substring(1);
@@ -194,7 +269,7 @@ const renderCheckout = (productDivCard) => {
   console.log(checkoutProductListTemplate(item, price, qty, total));
 
 };
-
+*/
 
 /* EVENTS / EVENT LISTENERS */
 /* const loadProducts = () => {
@@ -227,6 +302,7 @@ const productPageLinkEvent = () => {
 };
 
 //still need to complete
+/*
 const addToCartEvent = () => {
   productAddButton().addEventListener("click", (e) => {
     e.preventDefault();
@@ -241,7 +317,7 @@ const addToCartEvent = () => {
 
   })
 };
-
+*/
 
 const checkOutEvent = () => {
   checkOutButton().addEventListener("click", (e) => {
@@ -260,9 +336,6 @@ const checkoutPageLinkEvent = () => {
 
 
 /* */
-// const resetMain = () => {
-//   mainDiv().innerHTML = "";
-// }
 
 
 
