@@ -188,7 +188,7 @@ const renderCheckoutPage = () => {
   buttonCheckout.setAttribute("type", "submit");
   buttonCheckout.setAttribute("name", "action");
 
-  h4.innerText = "Basket";
+  h4.innerText = "Cart";
   buttonCheckout.innerText = "Checkout";
 
   div.appendChild(h4);
