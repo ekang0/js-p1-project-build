@@ -14,8 +14,6 @@ let products = [];
 const productAddButton = () => document.getElementById("product-add-btn");
 const checkoutPageLink = () => document.getElementById("checkout-page-link");
 const checkOutButton = () => document.getElementById("checkout-button");
-//const checkoutItemList = () => document.getElementById("checkout-item-list");
-let checkoutItems = [];
 
 
 /* TEMPLATES */
@@ -95,18 +93,23 @@ const checkoutListTemplate = () => {
   thItem.innerText = "Item";
   thItemPrice.innerText = "Item Price";
   thQuantity.innerText = "Quantity";
-  thTotal.innerText = "Total";
-  strong.innerText = "Total";
+  // thTotal.innerText = "Total";
+  // strong.innerText = "Total";
 
   trHead.appendChild(thItem);
   trHead.appendChild(thItemPrice);
   trHead.appendChild(thQuantity);
-  trHead.appendChild(thTotal);
+  // trHead.appendChild(thTotal);
   thead.appendChild(trHead);
   //tbodyCheckoutItemList.appendChild( `${ checkoutProductListTemplate() }` );
+
+  cart.map(item => {
+    tbodyCheckoutItemList.appendChild(checkoutProductListTemplate(item))
+  });
+
   trBodyCheckoutTotal.appendChild(td1);
   trBodyCheckoutTotal.appendChild(td2);
-  tdTotal.appendChild(strong);
+  // tdTotal.appendChild(strong);
   trBodyCheckoutTotal.appendChild(tdTotal);
   //trBodyCheckoutTotal.appendChild( `${checkoutTotalTemplate()}` );
   tbodyCheckoutTotal.appendChild(trBodyCheckoutTotal);
@@ -124,7 +127,7 @@ const checkoutListTemplate = () => {
 
 
 
-const checkoutProductListTemplate = () => {
+const checkoutProductListTemplate = (item) => {
   const tr = document.createElement("tr");
   const tdItem = document.createElement("td");
   const tdPrice = document.createElement("td");
@@ -138,10 +141,10 @@ const checkoutProductListTemplate = () => {
   tdQty.className = "item-qty"
   tdTotalPrice.className = "item-total"
 
-  tdItem.innerText = ""
-  tdPrice.innerText = ""
+  tdItem.innerText = item.name;
+  tdPrice.innerText = `$${item.price}`
   tdQty.innerText = "1"
-  tdTotalPrice.innerText= ""
+  // tdTotalPrice.innerText= ""
 
   tr.appendChild(tdItem);
   tr.appendChild(tdPrice);
@@ -176,7 +179,7 @@ const renderHomePage = () => {
   mainDiv().appendChild(div);
 };
 
-
+let cart = [];
 const renderProductPage = () => { 
   mainDiv().innerHTML = "";
   //productListTemplate() = h4
@@ -204,12 +207,20 @@ const renderProductPage = () => {
     addtoCartButton.addEventListener("click", (e) => {
       e.preventDefault();
       //console.log(e.target.closest(".container"))
-      let productContainer = e.target.closest(".container");
-      
+      let cartItem = e.target.closest(".container");
+      let cartItemName = cartItem.querySelector("span").innerText;
+      let cartItemPrice = parseFloat(cartItem.querySelector(".product-price").innerText.substring(1));
+      let cartItemAdd = {
+        name: cartItemName,
+        price: cartItemPrice
+      };
+      cart.push(cartItemAdd);
+
     });
 
   });
 };
+
 
 
 const renderCheckoutPage = () => {
@@ -278,7 +289,7 @@ const productPageLinkEvent = () => {
     e.preventDefault();
     await loadProducts();
     renderProductPage();
-    addToCartEvent();
+    //addToCartEvent();
   })
 };
 
