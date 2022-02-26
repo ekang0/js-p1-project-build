@@ -1,5 +1,5 @@
 # Shop OAT Project
->Shop OAT is an E-commerce store app, where customers can view and order products. Currently the store only features jewelry, but product variety will expand as our little shop grows.
+>Shop OAT is a consumer facing E-commerce store app, where the user can view and order products. Currently the store only features jewelry, but the listings will expand as our little shop's product assortment grows.
 
 
 ## Project Philosophy
@@ -10,13 +10,13 @@ This project was made with the intention of showing a simple E-commerce store la
 #### Homepage
 * Welcomes customers to the store 
 #### Products Page
-* Allows us to view products
+* Allows the user to view products
 * Displays all of the products and product details (product name, image, description, and price) as cards
-* Allows us to add product(s) to checkout cart 
+* Allows the user to add product(s) to checkout cart 
 #### Checkout Page
-* Allows us to view cart 
-* Cart lists the item(s) that we added to our checkout cart
-* Allows us to process the order
+* Allows the user to view cart 
+* Cart lists the item(s) that the user added to the checkout cart
+* Allows the user to process the order
 
 
 ## How to use
