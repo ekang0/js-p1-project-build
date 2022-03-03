@@ -19,6 +19,12 @@ This project was made with the intention of showing a simple E-commerce store la
 * Allows the user to process the order
 
 
+## How to start/run
+1. Download 
+2. Run by opening index.html in the browser
+3. Have fun or follow the how to use below
+
+
 ## How to use
 1. Start by clicking "Products" in the nav bar 
 2. Products will display
