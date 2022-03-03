@@ -161,7 +161,6 @@ const renderProductPage = () => {
   productIds.map(idNumber => {
     let addtoCartButton = document.getElementById(`product-add-btn-${idNumber}`);
     addtoCartButton.addEventListener("click", (e) => {
-      e.preventDefault();
       let cartItem = e.target.closest(".container");
       let cartItemName = cartItem.querySelector("span").innerText;
       let cartItemPrice = parseFloat(cartItem.querySelector(".product-price").innerText.substring(1));
@@ -213,14 +212,12 @@ const loadProducts = async () => {
 
 const homePageLinkEvent = () => {
   homePageLink().addEventListener('click', (e) => {
-    e.preventDefault();
     renderHomePage();
   })
 };
 
 const productPageLinkEvent = () => {
   productPageLink().addEventListener('click', async (e) => {
-    e.preventDefault();
     await loadProducts();
     renderProductPage();
   })
@@ -228,14 +225,12 @@ const productPageLinkEvent = () => {
 
 const checkOutEvent = () => {
   checkOutButton().addEventListener("click", (e) => {
-    e.preventDefault();
     alert('Thank you for shopping with us! You will receive a confirmation email containing your order summary.')
   })
 };
 
 const checkoutPageLinkEvent = () => {
   checkoutPageLink().addEventListener("click", (e) => {
-    e.preventDefault();
     renderCheckoutPage();
     checkOutEvent();
   })
@@ -253,3 +248,4 @@ document.addEventListener('DOMContentLoaded',() => {
   productPageLinkEvent();
   checkoutPageLinkEvent();
 });
+
